@@ -3,6 +3,7 @@ package com.SocialMedia.SocialMedia.controller;
 
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.UserRepository;
+import com.SocialMedia.SocialMedia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/users")
     public List<User> getUsers(){
 
@@ -24,24 +28,13 @@ public class UserController {
 
     @GetMapping("/users/{userId}")
     public User getUserById(@PathVariable("userId")Integer id) throws Exception {
-        Optional <User> user = userRepository.findById(id);
-        if(user.isPresent()){
-            return user.get();
-        }
-        throw new Exception("invalid user id");
+        return null;
     }
 
     @PostMapping("/users")
     public User createUser(@RequestBody User user){
-        User newUser =new User();
-        newUser.setEmail(user.getEmail());
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setPassword(user.getPassword());
-        newUser.setId(user.getId());
 
-        User savedUser = userRepository.save(newUser);
-
+        User savedUser =userService.registerUser(user);
         return savedUser;
     }
 

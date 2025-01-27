@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class User {
@@ -14,16 +16,22 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private String gender;
+    private List<Integer> follower;
+    private List<Integer> following;
 
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password) {
+    public User(Integer id, String firstName, String lastName, String email, String password, String gender, List<Integer> follower, List<Integer> following) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.gender = gender;
+        this.follower = follower;
+        this.following = following;
     }
 
     public Integer getId() {
@@ -64,5 +72,29 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public List<Integer> getFollower() {
+        return follower;
+    }
+
+    public void setFollower(List<Integer> follower) {
+        this.follower = follower;
+    }
+
+    public List<Integer> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Integer> following) {
+        this.following = following;
     }
 }
