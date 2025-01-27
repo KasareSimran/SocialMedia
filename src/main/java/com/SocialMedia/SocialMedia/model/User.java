@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,8 @@ public class User {
     private String email;
     private String password;
     private String gender;
-    private List<Integer> follower;
-    private List<Integer> following;
+    private List<Integer> follower =new ArrayList<>();
+    private List<Integer> following = new ArrayList<>();
 
     public User() {
     }
