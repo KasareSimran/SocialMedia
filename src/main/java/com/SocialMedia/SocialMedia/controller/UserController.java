@@ -27,8 +27,9 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    public User getUserById(@PathVariable("userId")Integer id) throws Exception {
-        return null;
+    public User getUserById(@PathVariable("userId")Integer userId) throws Exception {
+        User getUserById =userService.findUserById(userId);
+        return getUserById ;
     }
 
     @PostMapping("/users")
@@ -41,43 +42,29 @@ public class UserController {
 
     @PutMapping("/users/{userId}")
     public User updateUser(@RequestBody User user,@PathVariable Integer userId) throws Exception {
-        Optional <User> user1=userRepository.findById(userId);
-
-        if(user1.isEmpty()){
-            throw new Exception("invalid user");
-        }
-
-        User oldUser = user1.get();
-
-        if(user.getFirstName()!= null){
-            oldUser.setFirstName(user.getFirstName());
-        }
-
-        if(user.getLastName()!= null){
-            oldUser.setLastName(user.getLastName());
-        }
-
-        if(user.getEmail()!= null){
-            oldUser.setEmail(user.getEmail());
-        }
-
-
-        User updateUser =userRepository.save(oldUser);
-        return updateUser;
+        User updateUser =userService.updateUser( user,userId);
+        return updateUser ;
     }
 
 
+    @PutMapping("/users/{userId1}/{userId2}")
+    public User followUser(@PathVariable Integer userId1 , @PathVariable Integer userId2) throws Exception {
 
-    @DeleteMapping("/users/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId) throws Exception {
-        Optional <User> user1=userRepository.findById(userId);
-
-        if(user1.isEmpty()){
-            throw new Exception("invalid user");
-        }
-        userRepository.delete(user1.get());
-
-        return "user get deleted with id "+userId;
+        User user = userService.followUser(userId1, userId2);
+        return user;
     }
+
+
+//    @DeleteMapping("/users/{userId}")
+//    public String deleteUser(@PathVariable("userId") Integer userId) throws Exception {
+//        Optional <User> user1=userRepository.findById(userId);
+//
+//        if(user1.isEmpty()){
+//            throw new Exception("invalid user");
+//        }
+//        userRepository.delete(user1.get());
+//
+//        return "user get deleted with id "+userId;
+//    }
 
 }

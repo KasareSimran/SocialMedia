@@ -61,12 +61,34 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        return null;
+    public User updateUser(User user,Integer userId) throws Exception {
+        Optional <User> user1=userRepository.findById(userId);
+
+        if(user1.isEmpty()){
+            throw new Exception("invalid user");
+        }
+
+        User oldUser = user1.get();
+
+        if(user.getFirstName()!= null){
+            oldUser.setFirstName(user.getFirstName());
+        }
+
+        if(user.getLastName()!= null){
+            oldUser.setLastName(user.getLastName());
+        }
+
+        if(user.getEmail()!= null){
+            oldUser.setEmail(user.getEmail());
+        }
+
+
+        User updateUser =userRepository.save(oldUser);
+        return updateUser;
     }
 
     @Override
     public List<User> searchUser(String query) {
-        return null;
+        return userRepository.searchUser(query);
     }
 }
