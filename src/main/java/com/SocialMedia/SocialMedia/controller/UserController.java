@@ -55,6 +55,13 @@ public class UserController {
     }
 
 
+    @GetMapping("/users/search")
+    public List<User> searchUser(@RequestParam("query") String query){
+        List<User> users=userService.searchUser(query);
+        return users;
+    }
+
+
 //    @DeleteMapping("/users/{userId}")
 //    public String deleteUser(@PathVariable("userId") Integer userId) throws Exception {
 //        Optional <User> user1=userRepository.findById(userId);
