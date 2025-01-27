@@ -3,6 +3,7 @@ package com.SocialMedia.SocialMedia.service;
 import com.SocialMedia.SocialMedia.model.Post;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.PostRepository;
+import com.SocialMedia.SocialMedia.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,6 +18,9 @@ public class PostServiceImplementation implements PostService{
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
 
@@ -69,12 +73,34 @@ public class PostServiceImplementation implements PostService{
     }
 
     @Override
-    public Post savedPost(Integer postId, Integer userId) {
-        return null;
+    public Post savedPost(Integer postId, Integer userId) throws Exception {
+        Post post =findPostById(postId);
+        User user =userService.findUserById(userId);
+
+        //like button add and remove
+        if(user.getSavedPost().contains(post)){
+            user.getSavedPost().remove(post);
+        }
+        else{
+            user.getSavedPost().add(post);
+        }
+        userRepository.save(user);
+        return post;
     }
 
     @Override
-    public Post likePost(Integer postId, Integer userId) {
-        return null;
+    public Post likePost(Integer postId, Integer userId) throws Exception {
+        Post post =findPostById(postId);
+        User user =userService.findUserById(userId);
+
+        //like button add and remove
+        if(post.getLiked().contains(user)){
+            post.getLiked().remove(user);
+        }
+        else{
+            post.getLiked().add(user);
+        }
+
+        return postRepository.save(post);
     }
 }

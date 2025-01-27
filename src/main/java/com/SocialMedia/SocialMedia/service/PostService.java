@@ -2,9 +2,7 @@ package com.SocialMedia.SocialMedia.service;
 
 import com.SocialMedia.SocialMedia.model.Post;
 
-
 import java.util.List;
-
 
 public interface PostService {
 
@@ -13,6 +11,6 @@ public interface PostService {
     List<Post> findPostByUserId(Integer userId);
     Post findPostById(Integer postId) throws Exception;
     List<Post> findAllPost();
-    Post savedPost(Integer postId, Integer userId);
-    Post likePost(Integer postId,Integer userId);
+    Post savedPost(Integer postId, Integer userId) throws Exception;
+    Post likePost(Integer postId,Integer userId) throws Exception;
 }
