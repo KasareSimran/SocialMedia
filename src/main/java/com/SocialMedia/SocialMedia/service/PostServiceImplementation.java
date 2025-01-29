@@ -26,15 +26,13 @@ public class PostServiceImplementation implements PostService{
 
     @Override
     public Post createNewPost(Post post, Integer userId) throws Exception {
-
+        User user = userService.findUserById(userId);
         Post newPost=new Post();
         newPost.setCaption(post.getCaption());
         newPost.setImage(post.getImage());
         newPost.setVideo(post.getVideo());
-
-        User user = userService.findUserById(userId);
         newPost.setUser(user);
-        return null;
+        return postRepository.save(newPost);
     }
 
     @Override
@@ -53,7 +51,9 @@ public class PostServiceImplementation implements PostService{
 
     @Override
     public List<Post> findPostByUserId(Integer userId) {
-        return postRepository.findPostByUserId(userId);
+        List<Post> posts= postRepository.findPostByUserId(userId);
+        return posts;
+
     }
 
     @Override

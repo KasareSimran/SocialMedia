@@ -21,6 +21,7 @@ public class User {
     private String gender;
     private List<Integer> follower =new ArrayList<>();
     private List<Integer> following = new ArrayList<>();
+    @ManyToMany  //many user can saved many post vise versa
     private List<Post> savedPost=new ArrayList<>();
 
     public User() {
