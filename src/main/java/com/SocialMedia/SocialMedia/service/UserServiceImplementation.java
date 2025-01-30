@@ -2,9 +2,11 @@ package com.SocialMedia.SocialMedia.service;
 
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +18,14 @@ public class UserServiceImplementation implements UserService {
 
 
     @Override
+    @Transactional
     public User registerUser(User user) {
         User newUser =new User();
         newUser.setEmail(user.getEmail());
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
         newUser.setPassword(user.getPassword());
-        newUser.setId(user.getId());
-
+//        newUser.setId(user.getId());
         User savedUser = userRepository.save(newUser);
 
         return savedUser;
@@ -61,6 +63,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
+    @Transactional
     public User updateUser(User user,Integer userId) throws Exception {
         Optional <User> user1=userRepository.findById(userId);
 

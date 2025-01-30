@@ -4,6 +4,7 @@ package com.SocialMedia.SocialMedia.controller;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.UserRepository;
 import com.SocialMedia.SocialMedia.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ public class UserController {
         return getUserById ;
     }
 
+    @Transactional
     @PostMapping("/users")
     public User createUser(@RequestBody User user){
 

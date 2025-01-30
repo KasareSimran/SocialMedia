@@ -6,6 +6,8 @@ import com.SocialMedia.SocialMedia.repository.PostRepository;
 import com.SocialMedia.SocialMedia.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,7 @@ public class PostServiceImplementation implements PostService{
         newPost.setCaption(post.getCaption());
         newPost.setImage(post.getImage());
         newPost.setVideo(post.getVideo());
+        newPost.setCreatedAt(LocalDateTime.now());
         newPost.setUser(user);
         return postRepository.save(newPost);
     }
