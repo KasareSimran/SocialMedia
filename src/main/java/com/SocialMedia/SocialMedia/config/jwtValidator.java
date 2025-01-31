@@ -14,5 +14,11 @@ public class jwtValidator extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String jwt = request.getHeader(JwtConstant.JWT_HEADER);
+
+        if(jwt != null){
+            try{
+
+            }catch ()
+        }
     }
 }

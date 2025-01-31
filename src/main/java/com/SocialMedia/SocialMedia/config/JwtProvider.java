@@ -1,5 +1,6 @@
 package com.SocialMedia.SocialMedia.config;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
@@ -18,4 +19,15 @@ public class JwtProvider {
                 .compact();
         return jwt;
     }
+
+    public static String getEmailFromJwtToken(String jwt){
+//        Bearer token
+
+        jwt=jwt.substring(7);
+        Claims claims=Jwts.parser().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+        String email=String.valueOf(claims.get("email"));
+
+        return email;
+    }
+
 }
