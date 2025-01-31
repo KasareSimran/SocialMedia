@@ -1,5 +1,6 @@
 package com.SocialMedia.SocialMedia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -23,6 +24,7 @@ public class User {
     private List<Integer> follower =new ArrayList<>();
     private List<Integer> following = new ArrayList<>();
     @ManyToMany  //many user can saved many post vise versa
+    @JsonIgnore
     private List<Post> savedPost=new ArrayList<>();
 
     public User() {

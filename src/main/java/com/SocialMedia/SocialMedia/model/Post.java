@@ -2,6 +2,7 @@ package com.SocialMedia.SocialMedia.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -19,12 +20,11 @@ public class Post {
     private String image;
     private String video;
     @ManyToOne
-    @JsonIgnore
     private User user;
     private LocalDateTime createdAt;
     @OneToMany
-    @JsonIgnore
     private List<User> liked = new ArrayList<>();
+
 
 
     public Post() {
