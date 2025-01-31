@@ -3,17 +3,18 @@ package com.SocialMedia.SocialMedia.controller;
 import com.SocialMedia.SocialMedia.config.JwtProvider;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.UserRepository;
+import com.SocialMedia.SocialMedia.request.LoginRequest;
 import com.SocialMedia.SocialMedia.response.AuthResponse;
+import com.SocialMedia.SocialMedia.service.CustomeUserDetailsService;
 import com.SocialMedia.SocialMedia.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -27,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CustomeUserDetailsService customeUserDetailsService;
 
     @Transactional
     @PostMapping("/signup")
@@ -50,4 +54,28 @@ public class AuthController {
 
         return res;
     }
+
+    @PostMapping("/signin")
+    public AuthResponse signin (@RequestBody  LoginRequest loginRequest){
+        Authentication authentication=authenticate(loginRequest.getEmail(),loginRequest.getPassword());
+        String token = JwtProvider.generateToken(authentication);
+
+        AuthResponse res =new AuthResponse(token,"Login Success");
+
+        return res;
+    }
+
+    private Authentication authenticate(String email, String password) {
+        UserDetails userDetails=customeUserDetailsService.loadUserByUsername(email);
+        if(userDetails==null){
+            throw new BadCredentialsException("invalid username");
+        }
+        if(!passwordEncoder.matches(password,userDetails.getPassword())){
+            throw new BadCredentialsException("password not matched");
+        }
+        return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+
+    }
+
+
 }
