@@ -33,13 +33,7 @@ public class UserController {
         return getUserById ;
     }
 
-    @Transactional
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user){
 
-        User savedUser =userService.registerUser(user);
-        return savedUser;
-    }
 
 
     @PutMapping("/api/users/{userId}")
