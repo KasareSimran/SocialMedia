@@ -23,6 +23,7 @@ public class Post {
     private User user;
     private LocalDateTime createdAt;
     @OneToMany
+    @JsonIgnore
     private List<User> liked = new ArrayList<>();
 
 
