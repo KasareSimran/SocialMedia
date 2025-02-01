@@ -2,6 +2,7 @@ package com.SocialMedia.SocialMedia.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +18,17 @@ public class Comment {
     private User user;
     @ManyToMany
     private List<User> liked = new ArrayList<>();
+    private LocalDateTime createdAt;
 
     public Comment() {
     }
 
-    public Comment(Integer id, String content, User user, List<User> liked) {
+    public Comment(Integer id, String content, User user, List<User> liked, LocalDateTime createdAt) {
         this.id = id;
         Content = content;
         this.user = user;
         this.liked = liked;
+        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -58,5 +61,13 @@ public class Comment {
 
     public void setLiked(List<User> liked) {
         this.liked = liked;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
