@@ -32,7 +32,7 @@ public class PostController {
     }
 
 
-    @DeleteMapping("/posts/{postId}")
+    @DeleteMapping("/api/posts/{postId}")
     public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer postId,@RequestHeader("Authorization")String jwt) throws Exception {
         User reqUser=userService.findUserByJwt(jwt);
         String msg=postService.deletePost(postId,reqUser.getId());
@@ -41,20 +41,20 @@ public class PostController {
     }
 
 
-    @GetMapping("posts/user/{userId}")
+    @GetMapping("/api/posts/user/{userId}")
     public ResponseEntity<List<Post>> findUsersPost(@PathVariable Integer userId){
         List<Post> posts=postService.findPostByUserId(userId);
         return new ResponseEntity<List<Post>>(posts,HttpStatus.OK);
 
     }
 
-    @GetMapping("posts/{postId}")
+    @GetMapping("/api/posts/{postId}")
     public ResponseEntity<Post> findPostByIdHandler(@PathVariable Integer postId) throws Exception {
         Post post = postService.findPostById(postId);
         return new ResponseEntity<>(post,HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/api/posts")
     public ResponseEntity<List<Post>> findPosts(){
         List<Post> AllPosts=postService.findAllPost();
         return new ResponseEntity<List<Post>>(AllPosts,HttpStatus.OK);
@@ -62,7 +62,7 @@ public class PostController {
 
 
 
-    @PutMapping("/posts/save/{postId}")
+    @PutMapping("/api/posts/save/{postId}")
     public ResponseEntity<Post> savedPostHandler(@PathVariable Integer postId,@RequestHeader("Authorization")String jwt) throws Exception {
         User reqUser=userService.findUserByJwt(jwt);
         Post post = postService.savedPost(postId, reqUser.getId());
@@ -71,10 +71,10 @@ public class PostController {
 
 
 
-    @PutMapping("/posts/like/{postId}")
+    @PutMapping("/api/posts/like/{postId}")
     public ResponseEntity<Post> likePostHandler(@PathVariable Integer postId,@RequestHeader("Authorization")String jwt) throws Exception {
         User reqUser=userService.findUserByJwt(jwt);
-        Post post = postService.likePost(postId, reqUser.getId());
+        Post post = postService.likePost(postId, reqUser.getId())   ;
         return new ResponseEntity<>(post,HttpStatus.ACCEPTED);
     }
 
