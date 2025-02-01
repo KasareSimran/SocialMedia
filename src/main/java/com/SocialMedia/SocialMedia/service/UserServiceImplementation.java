@@ -1,5 +1,6 @@
 package com.SocialMedia.SocialMedia.service;
 
+import com.SocialMedia.SocialMedia.config.JwtProvider;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -47,18 +48,18 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User followUser(Integer userId1, Integer userId2) throws Exception {
+    public User followUser(Integer reqUserId, Integer userId2) throws Exception {
 
-        User user1 = findUserById(userId1);
+        User reqUser = findUserById(reqUserId);
         User user2= findUserById(userId2);
 
-        user2.getFollower().add(user1.getId());
-        user1.getFollowing().add(user2.getId());
+        user2.getFollower().add(reqUser.getId());
+        reqUser.getFollowing().add(user2.getId());
 
-        userRepository.save(user1);
+        userRepository.save(reqUser);
         userRepository.save(user2);
 
-        return user1;
+        return reqUser;
     }
 
     @Override
@@ -84,6 +85,9 @@ public class UserServiceImplementation implements UserService {
             oldUser.setEmail(user.getEmail());
         }
 
+        if(user.getGender()!= null){
+            oldUser.setGender(user.getGender());
+        }
 
         User updateUser =userRepository.save(oldUser);
         return updateUser;
@@ -92,5 +96,13 @@ public class UserServiceImplementation implements UserService {
     @Override
     public List<User> searchUser(String query) {
         return userRepository.searchUser(query);
+    }
+
+    @Override
+    public User findUserByJwt(String jwt) {
+            String email= JwtProvider.getEmailFromJwtToken(jwt);
+            User user=userRepository.findByEmail(email);
+
+        return user;
     }
 }
