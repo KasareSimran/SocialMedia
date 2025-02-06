@@ -23,6 +23,8 @@ public class Chat {
     @ManyToMany
     private List<User> users = new ArrayList<>();
     private LocalDateTime timestamp;
+    @OneToMany(mappedBy = "chat")
+    private List<Message> messages=new ArrayList<>();
 
 
     public Integer getId() {
@@ -63,5 +65,13 @@ public class Chat {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }
