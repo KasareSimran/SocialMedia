@@ -9,5 +9,5 @@ public interface ReelsService {
 
      Reels createReel(Reels reel, User user);
      List<Reels> findAllReels();
-     List<Reels> findUserReel(Integer userId);
+     List<Reels> findUserReel(Integer userId) throws Exception;
 }
