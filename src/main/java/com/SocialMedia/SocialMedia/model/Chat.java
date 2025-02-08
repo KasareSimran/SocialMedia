@@ -1,18 +1,13 @@
 package com.SocialMedia.SocialMedia.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Chat {
 
     @Id
@@ -26,6 +21,17 @@ public class Chat {
     @OneToMany(mappedBy = "chat")
     private List<Message> messages=new ArrayList<>();
 
+    public Chat() {
+    }
+
+    public Chat(Integer id, String chatName, String chatImage, List<User> users, LocalDateTime timestamp, List<Message> messages) {
+        this.id = id;
+        this.chatName = chatName;
+        this.chatImage = chatImage;
+        this.users = users;
+        this.timestamp = timestamp;
+        this.messages = messages;
+    }
 
     public Integer getId() {
         return id;

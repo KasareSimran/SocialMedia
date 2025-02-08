@@ -1,10 +1,11 @@
 package com.SocialMedia.SocialMedia.controller;
 
+import com.SocialMedia.SocialMedia.exceptions.ReelsException;
+import com.SocialMedia.SocialMedia.exceptions.UserException;
 import com.SocialMedia.SocialMedia.model.Reels;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.service.ReelsService;
 import com.SocialMedia.SocialMedia.service.UserService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,7 @@ public class ReelsController {
 
 
     @GetMapping("/api/reels/user/{userId}")
-    public List<Reels> findUserReels(@PathVariable Integer userId) throws Exception {
+    public List<Reels> findUserReels(@PathVariable Integer userId) throws ReelsException, UserException {
         List<Reels> reels=reelsService.findUserReel(userId);
         return reels;
     }

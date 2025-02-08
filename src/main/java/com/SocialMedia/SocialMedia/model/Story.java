@@ -2,17 +2,11 @@ package com.SocialMedia.SocialMedia.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+
 public class Story {
 
     @Id
@@ -23,6 +17,17 @@ public class Story {
     private String image;
     private String caption;
     private LocalDateTime timeStamp;
+
+    public Story() {
+    }
+
+    public Story(Integer id, User user, String image, String caption, LocalDateTime timeStamp) {
+        this.id = id;
+        this.user = user;
+        this.image = image;
+        this.caption = caption;
+        this.timeStamp = timeStamp;
+    }
 
     public Integer getId() {
         return id;

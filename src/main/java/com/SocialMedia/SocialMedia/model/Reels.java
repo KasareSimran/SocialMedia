@@ -2,13 +2,10 @@ package com.SocialMedia.SocialMedia.model;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+
 
 public class Reels {
 
@@ -20,6 +17,15 @@ public class Reels {
     @ManyToOne
     private User user;
 
+    public Reels() {
+    }
+
+    public Reels(Integer id, String title, String video, User user) {
+        this.id = id;
+        this.title = title;
+        this.video = video;
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;

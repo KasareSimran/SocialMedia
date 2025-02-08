@@ -1,6 +1,9 @@
 package com.SocialMedia.SocialMedia.controller;
 
 
+import com.SocialMedia.SocialMedia.exceptions.CommentException;
+import com.SocialMedia.SocialMedia.exceptions.PostException;
+import com.SocialMedia.SocialMedia.exceptions.UserException;
 import com.SocialMedia.SocialMedia.model.Comment;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.service.CommentService;
@@ -18,14 +21,14 @@ public class CommentController {
     private UserService userService;
 
     @PostMapping("/api/comments/post/{postId}")
-    public Comment createComment(@RequestBody Comment comment, @RequestHeader("Authorization")String jwt, @PathVariable Integer postId) throws Exception {
+    public Comment createComment(@RequestBody Comment comment, @RequestHeader("Authorization")String jwt, @PathVariable Integer postId) throws CommentException, PostException, UserException {
         User user=userService.findUserByJwt(jwt);
         Comment comment1=commentService.createComment(comment,postId, user.getId());
         return comment1;
     }
 
     @PutMapping("/api/comments/like/{commentId}")
-    public Comment likedComment( @RequestHeader("Authorization")String jwt, @PathVariable Integer commentId) throws Exception {
+    public Comment likedComment( @RequestHeader("Authorization")String jwt, @PathVariable Integer commentId) throws CommentException, UserException {
         User user=userService.findUserByJwt(jwt);
         Comment comment2=commentService.likeComment(commentId, user.getId());
         return comment2;

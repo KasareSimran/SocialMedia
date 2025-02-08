@@ -1,6 +1,8 @@
 package com.SocialMedia.SocialMedia.controller;
 
 
+import com.SocialMedia.SocialMedia.exceptions.StoryException;
+import com.SocialMedia.SocialMedia.exceptions.UserException;
 import com.SocialMedia.SocialMedia.model.Reels;
 import com.SocialMedia.SocialMedia.model.Story;
 import com.SocialMedia.SocialMedia.model.User;
@@ -28,7 +30,7 @@ public class StoryController {
     }
 
     @GetMapping("/api/story/user/{userId}")
-    public List<Story> findUserStory(@PathVariable Integer userId) throws Exception {
+    public List<Story> findUserStory(@PathVariable Integer userId) throws StoryException, UserException {
         List<Story> story=storyService.findStoryByUserId(userId);
         return story;
     }

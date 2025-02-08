@@ -41,7 +41,6 @@ public class Post {
         this.comments = comments;
     }
 
-
     public Integer getId() {
         return id;
     }

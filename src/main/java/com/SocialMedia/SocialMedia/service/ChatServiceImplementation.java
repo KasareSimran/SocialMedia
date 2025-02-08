@@ -1,5 +1,6 @@
 package com.SocialMedia.SocialMedia.service;
 
+import com.SocialMedia.SocialMedia.exceptions.ChatException;
 import com.SocialMedia.SocialMedia.model.Chat;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.ChatRepository;
@@ -33,10 +34,10 @@ public class ChatServiceImplementation implements ChatService{
     }
 
     @Override
-    public Chat findChatById(Integer chatId) throws Exception {
+    public Chat findChatById(Integer chatId) throws ChatException {
         Optional<Chat> opt=chatRepository.findById(chatId);
         if(opt.isEmpty()){
-            throw new Exception("No chat found for this id");
+            throw new ChatException("No chat found for this id");
         }
         return opt.get();
     }

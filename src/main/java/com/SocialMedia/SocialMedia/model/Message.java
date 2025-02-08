@@ -2,14 +2,11 @@ package com.SocialMedia.SocialMedia.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Message {
 
     @Id
@@ -24,6 +21,17 @@ public class Message {
     private Chat chat;
     private LocalDateTime timestamp;
 
+    public Message() {
+    }
+
+    public Message(Integer id, String content, String image, User user, Chat chat, LocalDateTime timestamp) {
+        this.id = id;
+        this.content = content;
+        this.image = image;
+        this.user = user;
+        this.chat = chat;
+        this.timestamp = timestamp;
+    }
 
     public Integer getId() {
         return id;

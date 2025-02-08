@@ -3,13 +3,12 @@ package com.SocialMedia.SocialMedia.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+
 
 public class User {
 
@@ -41,6 +40,8 @@ public class User {
         this.following = following;
         this.savedPost = savedPost;
     }
+
+
 
     public Integer getId() {
         return id;

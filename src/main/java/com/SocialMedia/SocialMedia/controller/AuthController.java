@@ -1,6 +1,7 @@
 package com.SocialMedia.SocialMedia.controller;
 
 import com.SocialMedia.SocialMedia.config.JwtProvider;
+import com.SocialMedia.SocialMedia.exceptions.UserException;
 import com.SocialMedia.SocialMedia.model.User;
 import com.SocialMedia.SocialMedia.repository.UserRepository;
 import com.SocialMedia.SocialMedia.request.LoginRequest;
@@ -34,11 +35,11 @@ public class AuthController {
 
     @Transactional
     @PostMapping("/signup")
-    public AuthResponse createUser(@RequestBody User user) throws Exception {
+    public AuthResponse createUser(@RequestBody User user) throws UserException {
 
         User isExist = userRepository.findByEmail(user.getEmail());
         if(isExist != null ){
-            throw new Exception("this email already used with another account");
+            throw new UserException("this email already used with another account");
         }
 
         User newUser =new User();

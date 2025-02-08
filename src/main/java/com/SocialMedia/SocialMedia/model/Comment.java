@@ -31,6 +31,7 @@ public class Comment {
         this.createdAt = createdAt;
     }
 
+
     public Integer getId() {
         return id;
     }

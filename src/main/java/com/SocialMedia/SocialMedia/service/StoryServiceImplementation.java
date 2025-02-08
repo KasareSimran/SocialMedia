@@ -1,5 +1,7 @@
 package com.SocialMedia.SocialMedia.service;
 
+import com.SocialMedia.SocialMedia.exceptions.StoryException;
+import com.SocialMedia.SocialMedia.exceptions.UserException;
 import com.SocialMedia.SocialMedia.model.Reels;
 import com.SocialMedia.SocialMedia.model.Story;
 import com.SocialMedia.SocialMedia.model.User;
@@ -29,7 +31,7 @@ public class StoryServiceImplementation implements StoryService{
     }
 
     @Override
-    public List<Story> findStoryByUserId(Integer userId) throws Exception {
+    public List<Story> findStoryByUserId(Integer userId) throws StoryException, UserException {
         User user=userService.findUserById(userId);
         return storyRepository.findByUserId(userId);
     }
