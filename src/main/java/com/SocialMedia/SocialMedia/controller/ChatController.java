@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class ChatController {
+public class  ChatController {
 
     @Autowired
     private ChatService chatService;

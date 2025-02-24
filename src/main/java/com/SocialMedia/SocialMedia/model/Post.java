@@ -20,7 +20,7 @@ public class Post {
     @ManyToOne
     private User user;
     private LocalDateTime createdAt;
-    @OneToMany
+    @ManyToMany
     private List<User> liked = new ArrayList<>();
     @OneToMany
     private List<Comment> comments=new ArrayList<>();
