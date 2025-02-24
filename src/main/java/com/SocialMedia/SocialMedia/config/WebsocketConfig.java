@@ -16,6 +16,7 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
         registery.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();
     }
 
+    @Override
     public void configureMessageBroker(MessageBrokerRegistry registery){
         registery.setApplicationDestinationPrefixes("/app");
         registery.enableSimpleBroker("/group","/user","/chat");
